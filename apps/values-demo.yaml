@@ -26,7 +26,7 @@ spec:
         image:
           repository: nginx
           pullPolicy: IfNotPresent
-          tag: "9.99-khong-ton-tai"
+          tag: "1.28"
         containerPort: 80
         fullnameOverride: demo
         containerName: demo
