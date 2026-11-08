@@ -1,0 +1,33 @@
+# Application con: chart spartan 0.11.0, values inline (giống templates/argocd/values-api.yaml).
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+  name: demo-web-local
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    repoURL: https://spartan-stratos.github.io/helm-charts
+    chart: spartan
+    targetRevision: 0.11.0
+    helm:
+      releaseName: demo
+      valuesObject:
+        replicaCount: 1
+        image:
+          repository: nginx
+          pullPolicy: IfNotPresent
+          tag: "1.27"
+        containerPort: 80
+        fullnameOverride: demo
+        containerName: demo
+        appNameLabel: demo
